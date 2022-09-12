@@ -1,0 +1,55 @@
+.game-block {
+  width: calc(33% - 60px);
+  padding: 120px 20px 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  &__bet {
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    font-weight: 600;
+    border: 2px #225eff solid;
+    display: inline-block;
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30px;
+    line-height: 30px;
+    font-weight: 600;
+  }
+
+  &--rock {
+    background-color: #211f4f;
+    border: 2px solid #26316b;
+
+    .game-block__title {
+      color: #2577db;
+    }
+  }
+
+  &--paper {
+    background-color: #1a381d;
+    border: 2px solid #187e3a;
+
+    .game-block__title {
+      color: #16c359;
+    }
+  }
+
+  &--scissors {
+    background-color: #50091e;
+    border: 2px solid #9a0e30;
+
+    .game-block__title {
+      color: #e31542;
+    }
+  }
+}

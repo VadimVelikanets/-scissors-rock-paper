@@ -1,0 +1,21 @@
+.header {
+  background-color: #161616;
+  padding: 20px 0;
+
+  &-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-item {
+      margin: 0 20px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      font-weight: 600;
+
+      &__title {
+        color: #c8a979;
+      }
+    }
+  }
+}

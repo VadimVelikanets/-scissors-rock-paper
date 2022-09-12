@@ -5,19 +5,21 @@ import {useBalanceContext} from "../../context/BalanceContext";
 import {useBetsContext} from "../../context/BetsContext";
 import './BetCounter.scss';
 
-const BetCounter = ({isActive}: BetCounterProps) => {
+const BetCounter = ({isActive, title}: BetCounterProps) => {
     const [betValue, setBetValue] = useState(0);
     const [disabledReduce, setDisabledReduce] = useState(true);
     const [disabledAdd, setDisabledAdd] = useState(false);
     const {balance} = useBalanceContext();
-    const {bets, setBets} = useBetsContext();
+    const {totalBets, setTotalBets, betsData, setBetsData} = useBetsContext();
 
     useEffect(() => {
         setBetValue(500)
         if(isActive) {
-            setBets(bets + betValue)
+                setBetsData(oldArray => [...oldArray, {title: title, bet: betValue}])
+                setTotalBets(totalBets + betValue)
         } else {
-            setBets( bets - betValue)
+            setTotalBets( totalBets - betValue)
+            setBetsData(betsData.filter(i => i.title !== title))
         }
     },[isActive])
 
@@ -28,23 +30,25 @@ const BetCounter = ({isActive}: BetCounterProps) => {
             setDisabledReduce(true)
         }
 
-        if(balance - bets <= 0) {
+        if(balance - totalBets <= 0) {
             setDisabledAdd(true)
         } else {
             setDisabledAdd(false)
         }
-    }, [betValue, isActive, bets])
+    }, [betValue, isActive, totalBets])
 
     const addBet = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         setBetValue(betValue + 500)
-        setBets(bets + 500)
+        setTotalBets(totalBets + 500)
+        setBetsData([...betsData.filter(i => i.title !== title), {title: title, bet: betValue + 500}])
     }
 
     const reduceBet = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         setBetValue(betValue - 500)
-        setBets(bets - 500)
+        setTotalBets(totalBets - 500)
+        setBetsData([...betsData.filter(i => i.title !== title), {title: title, bet: betValue - 500}])
     }
 
     return (

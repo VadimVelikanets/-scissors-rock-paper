@@ -6,7 +6,7 @@ import {useWinsContext} from "../../context/WinsContext";
 
 const Header = () => {
     const {balance} = useBalanceContext();
-    const {bets} = useBetsContext();
+    const {totalBets} = useBetsContext();
     const {wins} = useWinsContext();
     return (
         <div className="header">
@@ -18,7 +18,7 @@ const Header = () => {
                     </div>
                     <div className="header-data-item">
                         <span className="header-data-item__title">Bet: </span>
-                        <span className="header-data-item__value">{bets}</span>
+                        <span className="header-data-item__value">{totalBets}</span>
                     </div>
                     <div className="header-data-item">
                         <span className="header-data-item__title">Win: </span>

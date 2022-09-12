@@ -1,30 +1,30 @@
 import {getRandomBetValue} from "./getRandomBetValue";
+import {betDataItem} from "../context/BetsContext";
 
 type checkBetValueTypes = {
-    betsArray: string[],
+    betsData: betDataItem[],
     balance: number,
-    wins: number,
-    bets: number,
+    totalBets: number,
     setBalance: (num: number) => void,
-    setBets: (num: number) => void,
     setWins: (num: number) => void,
 }
 
-export const checkBetValue = ({betsArray, balance, bets, wins, setBalance, setBets, setWins}: checkBetValueTypes) => {
+export const checkBetValue = ({betsData, balance, totalBets, setBalance, setWins}: checkBetValueTypes) => {
     const result = getRandomBetValue();
-    if(!!betsArray.find(i => i == result)){
-        if(betsArray.length === 1) {
-            setBalance(balance - 500 + 14 * 500);
-            setWins(wins + 14 * 500)
+    if(!!betsData.find(i => i.title === result)){
+        const index = betsData.findIndex(item => item.title === result);
+        if(betsData.length === 1) {
+            setBalance(balance - totalBets + 14 * betsData[index].bet);
+            setWins( 14 * betsData[index].bet)
         }
 
-        if(betsArray.length === 2) {
-            setBalance(balance - 2* 500 + 3 * 2 * 500);
-            setWins(wins + 3 * 2 * 500)
+        if(betsData.length === 2) {
+            setBalance(balance - totalBets + 3 * betsData[index].bet);
+            setWins(3 * betsData[index].bet)
         }
     } else {
-        setBalance(balance - 500)
+        setBalance(balance - totalBets)
     }
 
-    console.log(result, balance)
+    return result
 }

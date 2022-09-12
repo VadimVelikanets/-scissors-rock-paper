@@ -2,5 +2,10 @@
   color: #c8a979;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 24px;
+  margin-bottom: 24px;
+
+  &__value {
+    color: #FFFFFF;
+  }
 }

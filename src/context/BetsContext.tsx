@@ -1,8 +1,14 @@
 import React, {useContext, type ReactNode, useState, useMemo} from 'react';
 
+export type betDataItem = {
+    title: string,
+    bet: number
+}
 type BetsContextTypes = {
-    bets: number,
-    setBets: React.Dispatch<React.SetStateAction<number>>
+    betsData: betDataItem[],
+    setBetsData: React.Dispatch<React.SetStateAction<betDataItem[]>>,
+    totalBets: number,
+    setTotalBets: React.Dispatch<React.SetStateAction<number>>
 }
 
 type BetsProviderProps = {
@@ -10,19 +16,22 @@ type BetsProviderProps = {
 }
 
 export const BetsContext = React.createContext<BetsContextTypes>({
-    bets: 0,
-    setBets: () => {}
+    betsData: [],
+    setBetsData: () => {},
+    totalBets: 0,
+    setTotalBets: () => {}
 })
 
 export function useBetsContext(): BetsContextTypes {
     return useContext(BetsContext)
 }
 export const BetsProvider = ({children}: BetsProviderProps) => {
-    const [bets, setBets] = useState(0);
+    const [totalBets, setTotalBets] = useState(0);
+    const [betsData, setBetsData] = useState<betDataItem[]>([]);
 
     const memoBetsContextValue = useMemo(() => {
-        return {bets, setBets}
-    }, [bets, setBets])
+        return {totalBets, setTotalBets, betsData, setBetsData}
+    }, [totalBets, setTotalBets, betsData, setBetsData])
 
     return (<BetsContext.Provider value={memoBetsContextValue}>{children}</BetsContext.Provider>)
 }
